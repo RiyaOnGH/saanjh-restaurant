@@ -6,7 +6,9 @@ const { reservationValidation } = require('../middleware/validation');
 
 // Public endpoints
 router.get('/availability', reservationController.getAvailability);
-router.post('/book', reservationValidation, reservationController.createReservation);
+
+// Authenticated users only: make a reservation
+router.post('/book', isAuthenticated, reservationValidation, reservationController.createReservation);
 
 // Customer self-service (requires login)
 router.get('/my-reservations', isAuthenticated, reservationController.getMyReservations);

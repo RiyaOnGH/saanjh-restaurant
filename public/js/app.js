@@ -583,6 +583,12 @@ function showBookingMessage(type, text, detail) {
 }
 
 async function handleBooking() {
+  // Must be logged in to make a reservation
+  if (!currentUser) {
+    showAuthModal("cust-login");
+    showBookingMessage("err", "Please sign in or create an account to reserve a table.");
+    return;
+  }
   try {
     const customerName = document.getElementById("r-name").value.trim();
     const phone = document.getElementById("r-phone").value.trim();
